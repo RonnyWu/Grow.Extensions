@@ -1,6 +1,6 @@
 namespace Grow.Extensions
 {
-    public static partial class ByteExt
+    public static class ByteTo
     {
         /// <summary>  
         /// Converts the byte value to an integer.  

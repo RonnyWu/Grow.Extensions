@@ -1,6 +1,6 @@
 namespace Grow.Extensions
 {
-    public static partial class IntExt
+    public static class DoubleExt
     {
     }
 }

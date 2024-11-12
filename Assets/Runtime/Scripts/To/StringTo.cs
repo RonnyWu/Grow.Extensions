@@ -1,6 +1,6 @@
 namespace Grow.Extensions
 {
-    public static partial class ShortExt
+    public static class StringExt
     {
     }
 }

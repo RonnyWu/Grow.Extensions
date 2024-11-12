@@ -1,6 +1,6 @@
 namespace Grow.Extensions
 {
-    public static partial class BoolExt
+    public static class BoolTo
     {
         /// <summary>  
         /// Converts the boolean value to an integer (1 for true, 0 for false).  
