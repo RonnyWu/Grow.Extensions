@@ -27,8 +27,13 @@ fi
 # 获取最后一次提交信息
 COMMIT_MSG=$(git log -1 --pretty=%B)
 
-# 获取当前版本号
-VERSION=$(node -p "require('./package.json').version")
+# 使用 grep 和 sed 从 package.json 获取版本号
+VERSION=$(grep -o '"version": "[^"]*"' package.json | sed 's/"version": "\(.*\)"/\1/')
+if [ -z "$VERSION" ]; then
+    echo -e "${RED}错误: 无法从 package.json 读取版本号${NC}"
+    exit 1
+fi
+
 echo -e "${GREEN}准备发布版本: $VERSION${NC}"
 
 # 创建临时目录
