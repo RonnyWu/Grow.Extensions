@@ -1,0 +1,24 @@
+{
+  "name": "com.ronny.grow.extensions",
+  "version": "0.1.0",
+  "displayName": "Grow Extensions",
+  "description": "Extension library for Grow Framework, providing additional functionality and utilities.",
+  "unity": "2022.3",
+  "keywords": [
+    "grow",
+    "extensions"
+  ],
+  "author": {
+    "name": "Ronny",
+    "url": "https://github.com/RonnyWu"
+  },
+  "dependencies": {
+  },
+  "samples": [
+    {
+      "displayName": "Example Features",
+      "description": "Contains example implementations demonstrating the usage of Grow Extensions package",
+      "path": "Samples~/ExampleFeatures"
+    }
+  ]
+}
