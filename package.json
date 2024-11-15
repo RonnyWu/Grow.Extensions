@@ -1,6 +1,6 @@
 {
   "name": "com.ronny.grow.extensions",
-  "version": "0.1.0-test",
+  "version": "0.0.2-test",
   "displayName": "Grow Extensions",
   "description": "Extension library for Grow Framework, providing additional functionality and utilities.",
   "unity": "2022.3",

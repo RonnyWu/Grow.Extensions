@@ -9,6 +9,16 @@ NC='\033[0m' # No Color
 # 错误处理
 set -e
 
+# 安全复制函数：如果文件存在则复制
+safe_copy() {
+    if [ -e "$1" ]; then
+        cp -r "$1" "$2"
+        echo -e "${GREEN}已复制: $1${NC}"
+    else
+        echo -e "${YELLOW}警告: $1 不存在，已跳过${NC}"
+    fi
+}
+
 echo -e "${YELLOW}开始 UPM 包发布流程...${NC}"
 
 # 检查当前分支
@@ -40,20 +50,32 @@ echo -e "${GREEN}准备发布版本: $VERSION${NC}"
 TEMP_DIR=$(mktemp -d)
 echo -e "${GREEN}创建临时目录: $TEMP_DIR${NC}"
 
-# 复制文件到临时目录
+# 复制文件到临时目录（包含 .meta 文件）
 echo -e "${GREEN}复制文件到临时目录...${NC}"
-cp -r Assets/Documentation~ "$TEMP_DIR/"
-cp -r Assets/Editor "$TEMP_DIR/"
-cp -r Assets/Runtime "$TEMP_DIR/"
-cp -r Assets/Samples~ "$TEMP_DIR/"
-cp -r Assets/Tests "$TEMP_DIR/"
-cp Assets/CHANGELOG.md "$TEMP_DIR/"
 
-# 保存其他必要文件
-cp package.json "$TEMP_DIR/"
-cp README.md "$TEMP_DIR/"
-cp README.zh-CN.md "$TEMP_DIR/"
-cp LICENSE "$TEMP_DIR/"
+# 复制核心文件和目录
+safe_copy "Assets/Documentation~" "$TEMP_DIR/"
+safe_copy "Assets/Documentation~.meta" "$TEMP_DIR/"
+safe_copy "Assets/Editor" "$TEMP_DIR/"
+safe_copy "Assets/Editor.meta" "$TEMP_DIR/"
+safe_copy "Assets/Runtime" "$TEMP_DIR/"
+safe_copy "Assets/Runtime.meta" "$TEMP_DIR/"
+safe_copy "Assets/Samples~" "$TEMP_DIR/"
+safe_copy "Assets/Samples~.meta" "$TEMP_DIR/"
+safe_copy "Assets/Tests" "$TEMP_DIR/"
+safe_copy "Assets/Tests.meta" "$TEMP_DIR/"
+safe_copy "Assets/CHANGELOG.md" "$TEMP_DIR/"
+safe_copy "Assets/CHANGELOG.md.meta" "$TEMP_DIR/"
+
+# 复制项目文件
+safe_copy "package.json" "$TEMP_DIR/"
+safe_copy "package.json.meta" "$TEMP_DIR/"
+safe_copy "README.md" "$TEMP_DIR/"
+safe_copy "README.md.meta" "$TEMP_DIR/"
+safe_copy "README.zh-CN.md" "$TEMP_DIR/"
+safe_copy "README.zh-CN.md.meta" "$TEMP_DIR/"
+safe_copy "LICENSE" "$TEMP_DIR/"
+safe_copy "LICENSE.meta" "$TEMP_DIR/"
 
 # 切换到 main 分支
 echo -e "${GREEN}切换到 main 分支...${NC}"
