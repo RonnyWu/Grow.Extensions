@@ -9,14 +9,20 @@ NC='\033[0m' # No Color
 # 错误处理
 set -e
 
-# 安全复制函数：如果文件存在则复制
-safe_copy() {
-    if [ -e "$1" ]; then
-        cp -r "$1" "$2"
-        echo -e "${GREEN}已复制: $1${NC}"
-    else
-        echo -e "${YELLOW}警告: $1 不存在，已跳过${NC}"
-    fi
+# 安全复制函数  
+safe_copy() {  
+    local src_pattern="$1"  
+    local dst_dir="$2"  
+    
+    # 使用 find 命令来处理文件  
+    find Assets -mindepth 1 -maxdepth 1 -print0 | while IFS= read -r -d '' file; do  
+        cp -r "$file" "$dst_dir/"  
+        if [ $? -eq 0 ]; then  
+            echo "已复制: $file"  
+        else  
+            echo -e "${RED}警告: 复制失败 $file${NC}"  
+        fi  
+    done  
 }
 
 echo -e "${YELLOW}开始 UPM 包发布流程...${NC}"
@@ -38,7 +44,7 @@ fi
 COMMIT_MSG=$(git log -1 --pretty=%B)
 
 # 使用 grep 和 sed 从 package.json 获取版本号
-VERSION=$(grep -o '"version": "[^"]*"' package.json | sed 's/"version": "\(.*\)"/\1/')
+VERSION=$(grep -o '"version": "[^"]*"' Assets/package.json | sed 's/"version": "\(.*\)"/\1/')
 if [ -z "$VERSION" ]; then
     echo -e "${RED}错误: 无法从 package.json 读取版本号${NC}"
     exit 1
@@ -54,28 +60,7 @@ echo -e "${GREEN}创建临时目录: $TEMP_DIR${NC}"
 echo -e "${GREEN}复制文件到临时目录...${NC}"
 
 # 复制核心文件和目录
-safe_copy "Assets/Documentation~" "$TEMP_DIR/"
-safe_copy "Assets/Documentation~.meta" "$TEMP_DIR/"
-safe_copy "Assets/Editor" "$TEMP_DIR/"
-safe_copy "Assets/Editor.meta" "$TEMP_DIR/"
-safe_copy "Assets/Runtime" "$TEMP_DIR/"
-safe_copy "Assets/Runtime.meta" "$TEMP_DIR/"
-safe_copy "Assets/Samples~" "$TEMP_DIR/"
-safe_copy "Assets/Samples~.meta" "$TEMP_DIR/"
-safe_copy "Assets/Tests" "$TEMP_DIR/"
-safe_copy "Assets/Tests.meta" "$TEMP_DIR/"
-safe_copy "Assets/CHANGELOG.md" "$TEMP_DIR/"
-safe_copy "Assets/CHANGELOG.md.meta" "$TEMP_DIR/"
-
-# 复制项目文件
-safe_copy "package.json" "$TEMP_DIR/"
-safe_copy "package.json.meta" "$TEMP_DIR/"
-safe_copy "README.md" "$TEMP_DIR/"
-safe_copy "README.md.meta" "$TEMP_DIR/"
-safe_copy "README.zh-CN.md" "$TEMP_DIR/"
-safe_copy "README.zh-CN.md.meta" "$TEMP_DIR/"
-safe_copy "LICENSE" "$TEMP_DIR/"
-safe_copy "LICENSE.meta" "$TEMP_DIR/"
+safe_copy "Assets/*" "$TEMP_DIR/"
 
 # 切换到 main 分支
 echo -e "${GREEN}切换到 main 分支...${NC}"
