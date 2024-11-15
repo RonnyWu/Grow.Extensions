@@ -76,3 +76,19 @@ crashlytics-build.properties
 *.sln.iml
 .idea.*.iml
 .idea.*.sln
+
+# ignore files that are not needed by the upm branch
+# IDE
+.vscode/
+
+# Build
+obj/
+bin/
+
+# Project files
+*.DotSettings
+*.DotSettings.user
+
+# OS
+.DS_Store
+Thumbs.db
