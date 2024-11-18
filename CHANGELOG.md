@@ -1,22 +1,29 @@
 # Changelog
-All notable changes to this package will be documented in this file.
+All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),  
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v0.0.1]
+## [0.0.1] - 2024-11-18
 
 ### Added
-- Initial package setup
-- Basic project structure
-- ToXxx family of extension functions added
-  - bool : `ToInt()`
-  - byte : `ToInt()`, `ToChar()`, `ToHex()`
-  - char : `ToInt()`, `ToByte()`
-  - decimal : `ToInt()`, `ToLong()`, `ToDouble()`, `ToRound()`, `ToAbs()`, `ToCeiling()`, `ToFloor()`, `ToFixed()`, `ToCurrency()`, `ToCurrencyWithSymbol()`, `ToPercentage()`
-  - double : `ToInt()`, `ToLong()`, `ToDecimal()`, `ToRound()`, `ToAbs()`, `ToCeiling()`, `ToFloor()`, `ToFixed()`, `ToPercentage()`
-  - float : `ToInt()`, `ToLong()`, `ToDouble()`, `ToDecimal()`, `ToRound()`, `ToAbs()`, `ToCeiling()`, `ToFloor()`, `ToFixed()`, `ToPercentage()`
-  - int : `ToLong()`, `ToFloat()`, `ToDouble()`, `ToDecimal()`, `ToAbs()`, `ToFixed()`
-  - long : `ToInt()`, `ToFloat()`, `ToDouble()`, `ToDecimal()`, `ToAbs()`, `ToFixed()`
-  - short : `ToInt()`, `ToLong()`, `ToFloat()`, `ToDouble()`, `ToDecimal()`, `ToAbs()`, `ToFixed()`
-  - string : `ToInt()`, `ToLong()`, `ToFloat()`, `ToDouble()`, `ToDecimal()`, `ToBool()`, `ToDateTime()`
+- Initial release with comprehensive type conversion extensions
+
+#### Type Conversion Extensions
+- **Numeric Types**
+  - Integer conversions (`int`, `long`, `short`)
+  - Floating-point conversions (`float`, `double`, `decimal`)
+  - Mathematical operations (Abs, Round, Ceiling, Floor)
+  - Formatting utilities (Fixed, Currency, Percentage)
+
+- **Basic Types**
+  - Boolean conversions
+  - Byte/Char conversions
+  - String parsing utilities
+  - DateTime parsing
+
+### Technical Notes
+- Implemented as extension methods for easy integration
+- Zero external dependencies
+- Full Unity 2021.3+ compatibility
+- Comprehensive XML documentation

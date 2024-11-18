@@ -1,61 +1,88 @@
 # Grow.Extensions
 
+## Status
+[![Unity](https://img.shields.io/badge/unity-2021.3%2B-blue?logo=unity)](https://unity.com/)
+[![.NET](https://img.shields.io/badge/.NET-Standard%202.1-512BD4?logo=.net)](https://dotnet.microsoft.com/)
+[![License](https://img.shields.io/github/license/RonnyWu/Grow.Extensions)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/RonnyWu/Grow.Extensions)](https://github.com/RonnyWu/Grow.Extensions/releases)
+[![Code Size](https://img.shields.io/github/languages/code-size/RonnyWu/Grow.Extensions)](https://github.com/RonnyWu/Grow.Extensions)
+
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-Extensions package for Grow Framework
-
 ## Overview
-A collection of useful extensions methods for Unity development, designed to enhance productivity and code readability.
+Grow.Extensions is a lightweight, zero-dependency extension library for Unity, providing a comprehensive set of type conversion and utility methods to enhance development efficiency.
+
+## Features
+
+### Type Conversion Extensions
+Provides extensive type conversion methods across various data types:
+
+#### Numeric Conversions
+- **Integer Types** (`int`, `long`, `short`)
+  ```csharp
+  int value = -123;
+  long longVal = value.ToLong();     // Convert to long
+  float floatVal = value.ToFloat();  // Convert to float
+  decimal decVal = value.ToDecimal(); // Convert to decimal
+  int absVal = value.ToAbs();        // Get absolute value
+  ```
+
+#### Floating Point Conversions
+- **Decimal & Floating Types** (`float`, `double`, `decimal`)
+  ```csharp
+  decimal price = 123.456m;
+  string currency = price.ToCurrency();        // "123.46"
+  string percent = price.ToPercentage();       // "123.46%"
+  decimal rounded = price.ToRound();           // 123
+  ```
+
+#### Basic Type Conversions
+- **Common Types** (`bool`, `byte`, `char`, `string`)
+  ```csharp
+  string dateStr = "2024-01-01";
+  DateTime date = dateStr.ToDateTime();  // Convert to DateTime
+  
+  byte value = 65;
+  char charVal = value.ToChar();        // Convert to char 'A'
+  string hexVal = value.ToHex();        // Convert to hex "41"
+  ```
 
 ## Installation
 
 ### Via Unity Package Manager
-1. Open the Package Manager window
-2. Click the "+" button in the top-left corner
-3. Select "Add package from git URL..."
-4. Enter: `https://github.com/RonnyWu/Grow.Extensions.git#v0.0.1`
+```
+https://github.com/RonnyWu/Grow.Extensions.git#v0.0.1
+```
 
 ### Via manifest.json
-Add the following line to your `manifest.json` under the `dependencies` section:
 ```json
 {
+  "dependencies": {
     "com.ronny.grow.extensions": "https://github.com/RonnyWu/Grow.Extensions.git#v0.0.1"
+  }
 }
 ```
 
-## Features
-- ToXxx family of extension functions
-  - bool : `ToInt()`
-  - byte : `ToInt()`, `ToChar()`, `ToHex()`
-  - char : `ToInt()`, `ToByte()`
-  - decimal : `ToInt()`, `ToLong()`, `ToDouble()`, `ToRound()`, `ToAbs()`, `ToCeiling()`, `ToFloor()`, `ToFixed()`, `ToCurrency()`, `ToCurrencyWithSymbol()`, `ToPercentage()`
-  - double : `ToInt()`, `ToLong()`, `ToDecimal()`, `ToRound()`, `ToAbs()`, `ToCeiling()`, `ToFloor()`, `ToFixed()`, `ToPercentage()`
-  - float : `ToInt()`, `ToLong()`, `ToDouble()`, `ToDecimal()`, `ToRound()`, `ToAbs()`, `ToCeiling()`, `ToFloor()`, `ToFixed()`, `ToPercentage()`
-  - int : `ToLong()`, `ToFloat()`, `ToDouble()`, `ToDecimal()`, `ToAbs()`, `ToFixed()`
-  - long : `ToInt()`, `ToFloat()`, `ToDouble()`, `ToDecimal()`, `ToAbs()`, `ToFixed()`
-  - short : `ToInt()`, `ToLong()`, `ToFloat()`, `ToDouble()`, `ToDecimal()`, `ToAbs()`, `ToFixed()`
-  - string : `ToInt()`, `ToLong()`, `ToFloat()`, `ToDouble()`, `ToDecimal()`, `ToBool()`, `ToDateTime()`
-
-## Usage Examples
-```csharp
-using Grow.Extensions;
-
-var value = -666;
-Debug.Log(source.ToAbs()); // returns 666
-```
-
 ## Requirements
-- Unity 2023.2 or later
-- No third-party dependencies
+- Unity 2021.3 or higher
+- .NET Standard 2.1
+- No external dependencies
 
 ## Documentation
-You can check the API documentation first, so far it's all simple methods
+- [API Documentation](https://github.com/RonnyWu/Grow.Extensions/wiki)
+- [Changelog](CHANGELOG.md)
+- [Examples](Samples~/TypeConversion)
 
 ## Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Changelog
-See [CHANGELOG](CHANGELOG.md) for details about changes in each release.
+Contributions are welcome! Please feel free to:
+- Submit [bug reports](https://github.com/RonnyWu/Grow.Extensions/issues)
+- Submit [pull requests](https://github.com/RonnyWu/Grow.Extensions/pulls)
+- Suggest new features
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+- Author: Ronny Wu
+- Email: ronnywu.pe@gmail.com
+- GitHub: [@RonnyWu](https://github.com/RonnyWu)
