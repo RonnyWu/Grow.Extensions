@@ -101,7 +101,7 @@ git checkout develop
 echo -e "${GREEN}更新提交信息并推送...${NC}"
 git commit --amend -m "$COMMIT_MSG
 
-v$VERSION 版本已发布"
+v$VERSION released"
 git push origin develop --force
 
 echo -e "${GREEN}完成！${NC}"

@@ -1,24 +1,39 @@
 {
   "name": "com.ronny.grow.extensions",
-  "version": "0.0.3-test",
+  "version": "0.0.1",
   "displayName": "Grow Extensions",
-  "description": "Extension library for Grow Framework, providing additional functionality and utilities.",
-  "unity": "2022.3",
+  "description": "A comprehensive collection of C# extension methods for Unity, providing type conversions and utility functions to enhance development efficiency.",
+  "unity": "2021.3",
+  "documentationUrl": "https://github.com/RonnyWu/Grow.Extensions/wiki",
+  "changelogUrl": "https://github.com/RonnyWu/Grow.Extensions/blob/main/CHANGELOG.md",
+  "licensesUrl": "https://github.com/RonnyWu/Grow.Extensions/blob/main/LICENSE",
   "keywords": [
-    "grow",
-    "extensions"
+    "unity",
+    "extensions",
+    "utility",
+    "type conversion",
+    "grow framework",
+    "csharp"
   ],
   "author": {
-    "name": "Ronny",
+    "name": "Ronny Wu",
+    "email": "ronnywu.pe@gmail.com",
     "url": "https://github.com/RonnyWu"
   },
-  "dependencies": {
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RonnyWu/Grow.Extensions.git"
   },
+  "bugs": {
+    "url": "https://github.com/RonnyWu/Grow.Extensions/issues"
+  },
+  "dependencies": {},
   "samples": [
     {
-      "displayName": "Example Features",
-      "description": "Contains example implementations demonstrating the usage of Grow Extensions package",
-      "path": "Samples~/ExampleFeatures"
+      "displayName": "Type Conversion Examples",
+      "description": "Examples demonstrating various type conversion extensions including numeric, string, and basic type conversions.",
+      "path": "Samples~/TypeConversion"
     }
   ]
 }
