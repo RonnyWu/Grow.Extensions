@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Ronny Wu
+// Licensed under the MIT License.
+// See LICENSE file in the project root for full license information.
+
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
@@ -129,7 +133,7 @@ namespace Grow.Extensions
         /// For non-null values, the behavior is identical to <see cref="ToByteArray(byte)"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [ContractAnnotation("null => null; notnull => notnull")]
+        [ContractAnnotation("null => notnull")]
         public static byte[] ToByteArray([CanBeNull] this byte? value) => value.HasValue ? value.Value.ToByteArray() : Array.Empty<byte>();
 
         #endregion
@@ -162,7 +166,7 @@ namespace Grow.Extensions
         /// For non-null values, the behavior is identical to <see cref="ToByteArray(short)"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [ContractAnnotation("null => null; notnull => notnull")]
+        [ContractAnnotation("null => notnull")]
         public static byte[] ToByteArray([CanBeNull] this short? value) => value.HasValue ? value.Value.ToByteArray() : Array.Empty<byte>();
 
         /// <summary>
@@ -191,7 +195,7 @@ namespace Grow.Extensions
         /// For non-null values, the behavior is identical to <see cref="ToByteArray(ushort)"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [ContractAnnotation("null => null; notnull => notnull")]
+        [ContractAnnotation("null => notnull")]
         public static byte[] ToByteArray([CanBeNull] this ushort? value) => value.HasValue ? value.Value.ToByteArray() : Array.Empty<byte>();
 
         /// <summary>
@@ -220,7 +224,7 @@ namespace Grow.Extensions
         /// For non-null values, the behavior is identical to <see cref="ToByteArray(char)"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [ContractAnnotation("null => null; notnull => notnull")]
+        [ContractAnnotation("null => notnull")]
         public static byte[] ToByteArray([CanBeNull] this char? value) => value.HasValue ? value.Value.ToByteArray() : Array.Empty<byte>();
 
         #endregion
@@ -253,7 +257,7 @@ namespace Grow.Extensions
         /// For non-null values, the behavior is identical to <see cref="ToByteArray(int)"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [ContractAnnotation("null => null; notnull => notnull")]
+        [ContractAnnotation("null => notnull")]
         public static byte[] ToByteArray([CanBeNull] this int? value) => value.HasValue ? value.Value.ToByteArray() : Array.Empty<byte>();
 
         /// <summary>
@@ -282,7 +286,7 @@ namespace Grow.Extensions
         /// For non-null values, the behavior is identical to <see cref="ToByteArray(uint)"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [ContractAnnotation("null => null; notnull => notnull")]
+        [ContractAnnotation("null => notnull")]
         public static byte[] ToByteArray([CanBeNull] this uint? value) => value.HasValue ? value.Value.ToByteArray() : Array.Empty<byte>();
 
         /// <summary>
@@ -311,7 +315,7 @@ namespace Grow.Extensions
         /// For non-null values, the behavior is identical to <see cref="ToByteArray(float)"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [ContractAnnotation("null => null; notnull => notnull")]
+        [ContractAnnotation("null => notnull")]
         public static byte[] ToByteArray([CanBeNull] this float? value) => value.HasValue ? value.Value.ToByteArray() : Array.Empty<byte>();
 
         #endregion
@@ -344,7 +348,7 @@ namespace Grow.Extensions
         /// For non-null values, the behavior is identical to <see cref="ToByteArray(long)"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [ContractAnnotation("null => null; notnull => notnull")]
+        [ContractAnnotation("null => notnull")]
         public static byte[] ToByteArray([CanBeNull] this long? value) => value.HasValue ? value.Value.ToByteArray() : Array.Empty<byte>();
 
         /// <summary>
@@ -373,7 +377,7 @@ namespace Grow.Extensions
         /// For non-null values, the behavior is identical to <see cref="ToByteArray(ulong)"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [ContractAnnotation("null => null; notnull => notnull")]
+        [ContractAnnotation("null => notnull")]
         public static byte[] ToByteArray([CanBeNull] this ulong? value) => value.HasValue ? value.Value.ToByteArray() : Array.Empty<byte>();
 
         /// <summary>
@@ -402,7 +406,7 @@ namespace Grow.Extensions
         /// For non-null values, the behavior is identical to <see cref="ToByteArray(double)"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [ContractAnnotation("null => null; notnull => notnull")]
+        [ContractAnnotation("null => notnull")]
         public static byte[] ToByteArray([CanBeNull] this double? value) => value.HasValue ? value.Value.ToByteArray() : Array.Empty<byte>();
 
         #endregion
@@ -439,7 +443,7 @@ namespace Grow.Extensions
         /// For non-null values, the behavior is identical to <see cref="ToByteArray(decimal)"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [ContractAnnotation("null => null; notnull => notnull")]
+        [ContractAnnotation("null => notnull")]
         public static byte[] ToByteArray([CanBeNull] this decimal? value) => value.HasValue ? value.Value.ToByteArray() : Array.Empty<byte>();
 
         /// <summary>
