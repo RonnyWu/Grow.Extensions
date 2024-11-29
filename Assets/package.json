@@ -1,6 +1,6 @@
 {
   "name": "com.ronny.grow.extensions",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "displayName": "Grow Extensions",
   "description": "A comprehensive collection of C# extension methods for Unity, providing type conversions and utility functions to enhance development efficiency.",
   "unity": "2021.3",
