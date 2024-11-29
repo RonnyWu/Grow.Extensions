@@ -4,6 +4,54 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.2] - 2024-11-29
+
+### Added
+- **Byte Conversion Suite**
+  - **ToByteSyntax**: Single byte conversion
+    - Optimized conversion for all primitive types (1/8/16/32/64/128-bit)
+    - Consistent default value handling
+    - Complete nullable type support
+    - Proper boundary checking and floating-point handling
+
+  - **ToByteArraySyntax**: Byte array conversion
+    - Zero-allocation implementation using stackalloc
+    - Direct memory marshalling for primitive types
+    - Optimized decimal conversion with precision preservation
+    - Efficient string encoding with automatic memory management
+    - Stack allocation optimization for small inputs
+
+- **String Representation Suite**
+  - **ToBinaryStringSyntax**: Binary format
+    - O(1) lookup-based conversion for numeric types
+    - IEEE 754 floating-point support
+    - Optimized memory usage with stackalloc
+    - Efficient byte array handling
+
+  - **ToHexStringSyntax**: Hexadecimal format
+    - Zero-allocation implementation for small inputs
+    - Optional formatting (uppercase, "0x" prefix)
+    - Direct bit manipulation optimization
+    - Bulk conversion support
+
+- **Boolean Conversion Suite**
+  - **ToBoolSyntax**: Boolean conversion
+    - Consistent behavior across all numeric types
+    - Configurable default values for nullable types
+    - Generic IConvertible support
+    - Efficient string parsing with null-safety
+
+### Changed
+- Cleaned up project dependencies for minimal footprint
+- Added MIT license headers to all source files
+
+### Technical Highlights
+- Zero-allocation implementations where possible
+- Comprehensive XML documentation
+- JetBrains.Annotations support
+- Thread-safe, pure function implementations
+- ReSharper-compliant code organization
+
 ## [0.0.1] - 2024-11-18
 
 ### Added
