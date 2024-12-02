@@ -3,7 +3,6 @@
 // See LICENSE file in the project root for full license information.
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace Grow.Extensions
@@ -31,7 +30,6 @@ namespace Grow.Extensions
     /// or specific use cases, as the current implementation already provides excellent performance
     /// for most scenarios.
     /// </remarks>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static class ToBinaryStringSyntax
     {
         #region Constants

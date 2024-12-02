@@ -3,7 +3,6 @@
 // See LICENSE file in the project root for full license information.
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
@@ -21,7 +20,6 @@ namespace Grow.Extensions
     /// - String: uses bool.TryParse with fallback to default value
     /// - Generic types: uses Convert.ToBoolean as fallback
     /// </remarks>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static class ToBoolSyntax
     {
         #region ToBool - 8 Bits (sbyte, byte)
