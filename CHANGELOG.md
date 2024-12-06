@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [0.0.3] - 2024-12-06
+
+### Features
+- Add comprehensive numeric type conversion extensions
+  - ToFloat: Support all primitive types with range validation and precision handling
+  - ToShort: Support all primitive types with overflow protection
+  - ToLong: Support all primitive types with range validation
+  - ToInt: Support all primitive types with boundary checks
+
+### Refactor
+- Remove redundant and duplicate conversion methods while maintaining API compatibility
+
+### Style
+- Format numeric conversion syntax methods for better readability
+  - ToDoubleSyntax
+  - ToBinaryStringSyntax
+  - ToHexStringSyntax
+
+### Chore
+- Upgrade Unity version from 2021.3.43f1 to 2021.3.45f1
+
 ## [0.0.2] - 2024-11-29
 
 ### Added

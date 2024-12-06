@@ -9,76 +9,6 @@ namespace Grow.Extensions
     public static class FloatTo
     {
         /// <summary>
-        /// Converts the float value to Int32.
-        /// </summary>
-        /// <param name="value">The float value to convert.</param>
-        /// <param name="defaultValue">The default value to return if conversion fails.</param>
-        /// <returns>The Int32 representation of the float value.</returns>
-        /// <remarks>
-        /// This method performs type conversion and always truncates decimal places.
-        /// For rounding behavior, use ToRound() instead.
-        /// </remarks>
-        /// <example>
-        /// <code>
-        /// float number = 123.45f;
-        /// int result = number.ToInt(); // returns 123
-        /// 
-        /// float negative = -123.45f;
-        /// int negativeResult = negative.ToInt(); // returns -123
-        /// 
-        /// float overflow = float.MaxValue;
-        /// int defaultResult = overflow.ToInt(-1); // returns -1 due to overflow
-        /// </code>
-        /// </example>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ToInt(this float value, int defaultValue = 0)
-        {
-            try
-            {
-                return Convert.ToInt32(value);
-            }
-            catch
-            {
-                return defaultValue;
-            }
-        }
-
-        /// <summary>
-        /// Converts the float value to Int64.
-        /// </summary>
-        /// <param name="value">The float value to convert.</param>
-        /// <param name="defaultValue">The default value to return if conversion fails.</param>
-        /// <returns>The Int64 representation of the float value.</returns>
-        /// <remarks>
-        /// This method performs type conversion and always truncates decimal places.
-        /// For rounding behavior, use ToRound() instead.
-        /// </remarks>
-        /// <example>
-        /// <code>
-        /// float number = 123.45f;
-        /// long result = number.ToLong(); // returns 123
-        /// 
-        /// float large = 123456789.5f;
-        /// long largeResult = large.ToLong(); // returns 123456789
-        /// 
-        /// float overflow = float.MaxValue;
-        /// long defaultResult = overflow.ToLong(-1); // returns -1 due to overflow
-        /// </code>
-        /// </example>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long ToLong(this float value, long defaultValue = 0)
-        {
-            try
-            {
-                return Convert.ToInt64(value);
-            }
-            catch
-            {
-                return defaultValue;
-            }
-        }
-
-        /// <summary>
         /// Converts the float value to double.
         /// </summary>
         /// <param name="value">The float value to convert.</param>
@@ -120,14 +50,8 @@ namespace Grow.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static decimal ToDecimal(this float value, decimal defaultValue = 0m)
         {
-            try
-            {
-                return Convert.ToDecimal(value);
-            }
-            catch
-            {
-                return defaultValue;
-            }
+            try { return Convert.ToDecimal(value); }
+            catch { return defaultValue; }
         }
 
         /// <summary>

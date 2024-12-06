@@ -119,7 +119,7 @@ namespace Grow.Extensions
                 position = PrefixLength;
             }
 
-            for (var i = 12; i >= 0; i -= 4) buffer[position++] = chars[(value >> i) & 0xF];
+            for (var i = 12; i >= 0; i -= 4) buffer[position++] = chars[value >> i & 0xF];
 
             return buffer.ToString();
         }
@@ -163,7 +163,7 @@ namespace Grow.Extensions
                 position = PrefixLength;
             }
 
-            for (var i = 28; i >= 0; i -= 4) buffer[position++] = chars[(value >> i) & 0xF];
+            for (var i = 28; i >= 0; i -= 4) buffer[position++] = chars[value >> i & 0xF];
             return buffer.ToString();
         }
 
@@ -209,7 +209,7 @@ namespace Grow.Extensions
                 position = PrefixLength;
             }
 
-            for (var i = 60; i >= 0; i -= 4) buffer[position++] = chars[(value >> i) & 0xF];
+            for (var i = 60; i >= 0; i -= 4) buffer[position++] = chars[value >> i & 0xF];
 
             return buffer.ToString();
         }

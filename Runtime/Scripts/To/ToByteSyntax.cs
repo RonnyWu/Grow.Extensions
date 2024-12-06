@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See LICENSE file in the project root for full license information.
 
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
@@ -35,7 +34,6 @@ namespace Grow.Extensions
     /// These optimizations should only be considered based on specific requirements,
     /// as the current implementation provides robust and efficient conversion for most use cases.
     /// </remarks>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static class ToByteSyntax
     {
         #region ToByte - 1 Bits (bool)

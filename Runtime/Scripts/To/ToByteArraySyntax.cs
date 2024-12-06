@@ -3,7 +3,6 @@
 // See LICENSE file in the project root for full license information.
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -31,7 +30,6 @@ namespace Grow.Extensions
     /// byte[] strBytes = "Hello".ToByteArray();   // Returns UTF8 encoded bytes
     /// </code>
     /// </remarks>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static class ToByteArraySyntax
     {
         /// <summary>

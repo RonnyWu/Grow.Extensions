@@ -9,34 +9,6 @@ namespace Grow.Extensions
     public static class DoubleTo
     {
         /// <summary>
-        /// Converts the double value to Int32.
-        /// </summary>
-        /// <param name="value">The double value to convert.</param>
-        /// <param name="defaultValue">The default value to return if conversion fails.</param>
-        /// <returns>The Int32 representation of the double value.</returns>
-        /// <remarks>
-        /// This method performs type conversion and always truncates decimal places.
-        /// For rounding behavior, use ToRound() instead.
-        /// </remarks>
-        /// <example>
-        /// <code>
-        /// double number = 123.45;
-        /// int result = number.ToInt(); // returns 123
-        /// 
-        /// double negative = -123.45;
-        /// int negativeResult = negative.ToInt(); // returns -123
-        /// 
-        /// double overflow = double.MaxValue;
-        /// int defaultResult = overflow.ToInt(-1); // returns -1 due to overflow
-        /// </code>
-        /// </example>
-        public static int ToInt(this double value, int defaultValue = 0)
-        {
-            if (double.IsNaN(value) || double.IsInfinity(value) || value < int.MinValue || value > int.MaxValue) return defaultValue;  
-            return (int)value; 
-        }
-
-        /// <summary>
         /// Converts the double value to Int64.
         /// </summary>
         /// <param name="value">The double value to convert.</param>

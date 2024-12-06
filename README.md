@@ -49,19 +49,35 @@ Provides extensive type conversion methods across various data types:
 
 ## Installation
 
-### Via Unity Package Manager
-```
-https://github.com/RonnyWu/Grow.Extensions.git#v0.0.1
-```
+### Option 1: Unity Package Manager (Recommended)
+1. Open the Package Manager window (Window > Package Manager)
+2. Click the "+" button in the top-left corner
+3. Select "Add package from git URL"
+4. Enter the repository URL : `https://github.com/RonnyWu/Grow.Extensions.git`
+5. Click "Add"
 
-### Via manifest.json
+### Option 2: Manifest.json
+Add the following line to your `Packages/manifest.json`:
 ```json
 {
   "dependencies": {
-    "com.ronny.grow.extensions": "https://github.com/RonnyWu/Grow.Extensions.git#v0.0.1"
+    "com.ronny.grow.extensions": "https://github.com/RonnyWu/Grow.Extensions.git"
   }
 }
 ```
+
+### Option 3: Local Import
+1. Download or clone this repository
+2. Extract the archive if needed
+3. In Unity, open Package Manager (Window > Package Manager)
+4. Click the "+" button and choose "Add package from disk"
+5. Navigate to and select the `package.json` file in the downloaded/cloned folder
+6. Click "Open"
+
+### Version Control
+- To lock to a specific version, append `#v{version}` to the URL (e.g. `https://github.com/RonnyWu/Grow.Extensions.git#v1.2.3`)
+- To use the latest version, omit the version tag
+- View all available versions on the [releases page](https://github.com/RonnyWu/Grow.Extensions/releases)
 
 ## Requirements
 - Unity 2021.3 or higher
