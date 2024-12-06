@@ -293,8 +293,7 @@ namespace Grow.Extensions
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [SuppressMessage("ReSharper", "MergeIntoPattern")] // For simple judgments, it performs better than Into Pattern
-        public static long ToLong(this float value, long @default = 0) =>
-            float.IsFinite(value) && value >= long.MinValue && value <= long.MaxValue ? unchecked((long)value) : @default;
+        public static long ToLong(this float value, long @default = 0) => float.IsFinite(value) && value >= long.MinValue && value <= long.MaxValue ? unchecked((long)value) : @default;
 
         /// <summary>
         /// Converts a nullable single-precision floating-point number to a 64-bit signed integer.
@@ -313,7 +312,6 @@ namespace Grow.Extensions
         public static long ToLong([CanBeNull] this float? value, long @default = 0) => value?.ToLong(@default) ?? @default;
 
         #endregion
-
 
         #region ToLong - 128+ Bits ( decimal: ±7.9E+28, string: parse long )
 
@@ -340,8 +338,7 @@ namespace Grow.Extensions
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [SuppressMessage("ReSharper", "MergeIntoPattern")] // For simple judgments, it performs better than Into Pattern
-        public static long ToLong(this decimal value, long @default = 0) =>
-            value >= DecimalLongMin && value <= DecimalLongMax ? decimal.ToInt64(value) : @default;
+        public static long ToLong(this decimal value, long @default = 0) => value >= DecimalLongMin && value <= DecimalLongMax ? decimal.ToInt64(value) : @default;
 
         /// <summary>
         /// Converts a nullable decimal value to a 64-bit signed integer with range validation.
@@ -358,8 +355,7 @@ namespace Grow.Extensions
         /// </code>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long ToLong([CanBeNull] this decimal? value, long @default = 0) =>
-            value?.ToLong(@default) ?? @default;
+        public static long ToLong([CanBeNull] this decimal? value, long @default = 0) => value?.ToLong(@default) ?? @default;
 
         /// <summary>
         /// Converts a string representation of a number to a 64-bit signed integer.
@@ -391,8 +387,7 @@ namespace Grow.Extensions
         /// </code>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long ToLong([CanBeNull] this string value, long @default = 0) =>
-            string.IsNullOrEmpty(value) ? @default : long.TryParse(value.AsSpan(), out var result) ? result : @default;
+        public static long ToLong([CanBeNull] this string value, long @default = 0) => string.IsNullOrEmpty(value) ? @default : long.TryParse(value.AsSpan(), out var result) ? result : @default;
 
         #endregion
     }

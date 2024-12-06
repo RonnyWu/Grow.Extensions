@@ -9,27 +9,6 @@ namespace Grow.Extensions
     public static class LongTo
     {
         /// <summary>
-        /// Converts the long value to Int32.
-        /// </summary>
-        /// <param name="value">The long value to convert.</param>
-        /// <param name="defaultValue">The default value to return if conversion fails.</param>
-        /// <returns>The Int32 representation of the long value.</returns>
-        /// <remarks>
-        /// This method will return the default value if the long value exceeds Int32 range.
-        /// </remarks>
-        /// <example>
-        /// <code>
-        /// long number = 123L;
-        /// int result = number.ToInt(); // returns 123
-        /// 
-        /// long large = long.MaxValue;
-        /// int defaultResult = large.ToInt(-1); // returns -1 due to overflow
-        /// </code>
-        /// </example>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ToInt(this long value, int defaultValue = 0) => value is > int.MaxValue or < int.MinValue ? defaultValue : Convert.ToInt32(value);
-
-        /// <summary>
         /// Converts the long value to float.
         /// </summary>
         /// <param name="value">The long value to convert.</param>
