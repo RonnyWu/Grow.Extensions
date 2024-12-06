@@ -1,6 +1,6 @@
 {
   "name": "com.ronny.grow.extensions",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "displayName": "Grow Extensions",
   "description": "A comprehensive collection of C# extension methods for Unity, providing type conversions and utility functions to enhance development efficiency.",
   "unity": "2021.3",
@@ -8,12 +8,8 @@
   "changelogUrl": "https://github.com/RonnyWu/Grow.Extensions/blob/main/CHANGELOG.md",
   "licensesUrl": "https://github.com/RonnyWu/Grow.Extensions/blob/main/LICENSE",
   "keywords": [
-    "unity",
     "extensions",
-    "utility",
-    "type conversion",
-    "grow framework",
-    "csharp"
+    "grow"
   ],
   "author": {
     "name": "Ronny Wu",
