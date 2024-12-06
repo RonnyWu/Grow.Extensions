@@ -40,7 +40,7 @@ namespace Grow.Extensions
         static ToBinaryStringSyntax()
         {
             // Pre-compute all possible byte values for consistent O(1) lookup performance
-            for (var i = 0; i < 256; i++) { ByteLookup[i] = Convert.ToString(i, 2).PadLeft(8, '0'); }
+            for (var i = 0; i < 256; i++) ByteLookup[i] = Convert.ToString(i, 2).PadLeft(8, '0');
         }
 
         #endregion
@@ -118,7 +118,7 @@ namespace Grow.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ToBinaryString(this short value, bool prefix = true)
         {
-            var high = ByteLookup[(value >> 8) & 0xFF];
+            var high = ByteLookup[value >> 8 & 0xFF];
             var low = ByteLookup[value & 0xFF];
             return prefix ? Prefix + high + low : high + low;
         }
@@ -199,7 +199,7 @@ namespace Grow.Extensions
 
             for (var i = 24; i >= 0; i -= 8)
             {
-                ByteLookup[(value >> i) & 0xFF].AsSpan().CopyTo(buffer[position..]);
+                ByteLookup[value >> i & 0xFF].AsSpan().CopyTo(buffer[position..]);
                 position += 8;
             }
 
@@ -253,7 +253,7 @@ namespace Grow.Extensions
 
             for (var i = 56; i >= 0; i -= 8)
             {
-                ByteLookup[(value >> i) & 0xFF].AsSpan().CopyTo(buffer[position..]);
+                ByteLookup[value >> i & 0xFF].AsSpan().CopyTo(buffer[position..]);
                 position += 8;
             }
 
