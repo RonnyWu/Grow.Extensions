@@ -8,6 +8,20 @@ using JetBrains.Annotations;
 
 namespace Grow.Extensions
 {
+    /// <summary>
+    /// Specifies the accuracy level for time measurements.
+    /// Represents different time units from ticks (100ns) to seconds,
+    /// following the standard time unit progression.
+    /// </summary>
+    public enum TimeAccuracy
+    {
+        Tick, // 100 nanoseconds = 1 tick
+        Ns,   // 1000 ns = 1 us (microsecond)
+        Us,   // 1000 us = 1 ms (millisecond)
+        Ms,   // 1000 ms = 1 s (second)
+        Sec   // 1 second
+    }
+
     public static class ToDoubleSyntax
     {
         private const double DefaultDouble = 0.0;

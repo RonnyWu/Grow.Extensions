@@ -1,0 +1,6 @@
+
+[*]
+
+# ReSharper properties
+resharper_csharp_int_align_comments = true
+resharper_csharp_keep_blank_lines_in_declarations = 1
