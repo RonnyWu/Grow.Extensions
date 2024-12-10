@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.4] - 2024-12-11
+
+### Added
+- Added `ToCeilingSyntax` for ceiling value calculations
+- Added `ToRoundSyntax` for numeric rounding operations
+- Added `ToRemapSyntax` for range transformation
+- Added `ToPercentageSyntax` for percentage formatting
+- Added `ToNormalizeSyntax` for range normalization
+- Added `ToFloorSyntax` for floor value calculations
+- Added `ToFixedSyntax` for precise decimal place formatting
+- Added `ToClampSyntax` for value range constraints
+- Added `ToAbsSyntax` for type-safe absolute value operations
+- Added hybrid `FormatCache` for optimized number formatting
+- Added `CONTRIBUTING.md` and `CODE_OF_CONDUCT.md` files
+
+### Changed
+- Renamed Documentation~ and Samples~ to standard directory names
+- Updated code formatting and style configurations
+
+### Removed
+- Removed deprecated code in new version
+
+### Added (Documentation)
+- Updated issue templates
+
 # [0.0.3] - 2024-12-06
 
 ### Features
