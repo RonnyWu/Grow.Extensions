@@ -210,7 +210,6 @@ namespace Grow.Extensions
 
         #endregion
 
-
         #region ToShort - 64 Bits ( long: ±9.2E+18, ulong: 0~18.4E+18, double: ±1.7E+308, DateTime: 1901~2038 UTC )
 
         /// <summary>
