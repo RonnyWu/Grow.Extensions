@@ -1,108 +1,161 @@
-#!/bin/bash
+#!/bin/bash  
 
-# 颜色定义
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+# 颜色定义  
+RED='\033[0;31m'  
+GREEN='\033[0;32m'  
+YELLOW='\033[1;33m'  
+NC='\033[0m' # No Color  
 
-# 错误处理
-set -e
+# 错误处理  
+set -euo pipefail  
 
-# 安全复制函数  
-safe_copy() {  
-    local src_pattern="$1"  
-    local dst_dir="$2"  
-    
-    # 使用 find 命令来处理文件  
-    find Assets -mindepth 1 -maxdepth 1 -print0 | while IFS= read -r -d '' file; do  
-        cp -r "$file" "$dst_dir/"  
-        if [ $? -eq 0 ]; then  
-            echo "已复制: $file"  
+# 总步骤数  
+TOTAL_STEPS=14  
+CURRENT_STEP=0  
+
+# 是否跳过推送操作（步骤 13）  
+SKIP_PUSH=false  
+
+# 日志函数  
+log() {  
+    local message="\$1"  
+    local color="\$2"  
+    local prefix="\$3"  
+    local step="\$4"  
+
+    # 计算进度百分比  
+    local progress=$(( (CURRENT_STEP * 100) / TOTAL_STEPS ))  
+
+    # 输出日志  
+    echo -e "${color}${prefix} [${progress}%] 步骤 $step/${TOTAL_STEPS}: $message${NC}"  
+}  
+
+# 检查 Unity Editor 是否正在运行  
+check_unity_running() {  
+    log "检查 Unity Editor 是否正在运行..." "$YELLOW" "[INFO]" "$CURRENT_STEP"  
+
+    # 检查 Unity 进程（跨平台）  
+    if [[ "$OSTYPE" == "linux-gnu"* || "$OSTYPE" == "darwin"* ]]; then  
+        if pgrep -x "Unity" > /dev/null; then  
+            log "检测到 Unity Editor 正在运行，请关闭后重试" "$RED" "[ERROR]" "$CURRENT_STEP"  
+            exit 1  
+        fi  
+    elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then  
+        if tasklist | grep -i "Unity.exe" > /dev/null; then  
+            log "检测到 Unity Editor 正在运行，请关闭后重试" "$RED" "[ERROR]" "$CURRENT_STEP"  
+            exit 1  
+        fi  
+    else  
+        log "无法检测 Unity Editor 是否运行，未知的操作系统类型: $OSTYPE" "$RED" "[ERROR]" "$CURRENT_STEP"  
+        exit 1  
+    fi  
+
+    log "Unity Editor 未运行，检查通过" "$GREEN" "[INFO]" "$CURRENT_STEP"  
+}  
+
+# 安全执行步骤的函数  
+safe_execute() {  
+    local step="\$1"  
+    local description="\$2"  
+    local command="\$3"  
+
+    while true; do  
+        CURRENT_STEP=$step  
+        log "$description" "$YELLOW" "[INFO]" "$CURRENT_STEP"  
+        if eval "$command"; then  
+            log "$description 成功" "$GREEN" "[INFO]" "$CURRENT_STEP"  
+            break  
         else  
-            echo -e "${RED}警告: 复制失败 $file${NC}"  
+            retry_or_exit "$step" "$description"  
         fi  
     done  
-}
+}  
 
-echo -e "${YELLOW}开始 UPM 包发布流程...${NC}"
+# 失败后提供重试或退出选项  
+retry_or_exit() {  
+    local step="\$1"  
+    local message="\$2"  
 
-# 检查当前分支
-CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
-if [ "$CURRENT_BRANCH" != "develop" ]; then
-    echo -e "${RED}错误: 请先切换到 develop 分支${NC}"
-    exit 1
-fi
+    echo -e "${RED}步骤 $step 失败: $message${NC}"  
+    while true; do  
+        echo -e "${YELLOW}请选择: [r] 重试 / [q] 退出${NC}"  
+        read -rp "输入选择: " choice  
+        case "$choice" in  
+            r|R)  
+                echo -e "${YELLOW}重试步骤 $step...${NC}"  
+                return 0 # 返回 0 表示继续重试  
+                ;;  
+            q|Q)  
+                echo -e "${RED}退出脚本...${NC}"  
+                exit 1  
+                ;;  
+            *)  
+                echo -e "${RED}无效选择，请输入 'r' 或 'q'${NC}"  
+                ;;  
+        esac  
+    done  
+}  
 
-# 检查是否有未提交的更改
-if ! git diff-index --quiet HEAD --; then
-    echo -e "${RED}错误: 有未提交的更改，请先提交${NC}"
-    exit 1
-fi
+# 主流程  
+main() {  
+    echo -e "${YELLOW}开始 UPM 包发布流程...${NC}"  
 
-# 获取最后一次提交信息
-COMMIT_MSG=$(git log -1 --pretty=%B)
+    # 询问是否跳过推送操作  
+    echo -e "${YELLOW}是否跳过推送操作（用于测试）？[y/N]${NC}"  
+    read -rp "输入选择: " skip_push_choice  
+    if [[ "$skip_push_choice" =~ ^[yY]$ ]]; then  
+        SKIP_PUSH=true  
+        echo -e "${YELLOW}推送操作将被跳过${NC}"  
+    fi  
 
-# 使用 grep 和 sed 从 package.json 获取版本号
-VERSION=$(grep -o '"version": "[^"]*"' Assets/package.json | sed 's/"version": "\(.*\)"/\1/')
-if [ -z "$VERSION" ]; then
-    echo -e "${RED}错误: 无法从 package.json 读取版本号${NC}"
-    exit 1
-fi
+    # 步骤 1: 检查 Unity Editor 是否正在运行  
+    safe_execute 1 "检查 Unity Editor 是否正在运行" "check_unity_running"  
 
-echo -e "${GREEN}准备发布版本: $VERSION${NC}"
+    # 步骤 2: 检查当前分支  
+    safe_execute 2 "检查当前分支" "check_branch"  
 
-# 创建临时目录
-TEMP_DIR=$(mktemp -d)
-echo -e "${GREEN}创建临时目录: $TEMP_DIR${NC}"
+    # 步骤 3: 检查是否有未提交的更改  
+    safe_execute 3 "检查未提交的更改" "check_uncommitted_changes"  
 
-# 复制文件到临时目录（包含 .meta 文件）
-echo -e "${GREEN}复制文件到临时目录...${NC}"
+    # 步骤 4: 获取最后一次提交信息  
+    safe_execute 4 "获取最后一次提交信息" "COMMIT_MSG=\$(get_last_commit_message)"  
 
-# 复制核心文件和目录
-safe_copy "Assets/*" "$TEMP_DIR/"
+    # 步骤 5: 获取版本号  
+    safe_execute 5 "获取版本号" "VERSION=\$(get_version)"  
 
-# 切换到 main 分支
-echo -e "${GREEN}切换到 main 分支...${NC}"
-git checkout main
+    # 步骤 6: 创建临时目录  
+    safe_execute 6 "创建临时目录" "TEMP_DIR=\$(mktemp -d)"  
 
-# 清理当前目录（保留 .git）
-echo -e "${GREEN}清理当前目录...${NC}"
-find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+    # 步骤 7: 复制文件到临时目录  
+    safe_execute 7 "复制文件到临时目录" "safe_copy 'Assets' \"\$TEMP_DIR\""  
 
-# 复制文件到主目录
-echo -e "${GREEN}复制文件到主目录...${NC}"
-cp -r "$TEMP_DIR"/* ./
+    # 步骤 8: 切换到 main 分支  
+    safe_execute 8 "切换到 main 分支" "git checkout main"  
 
-# 删除临时目录
-rm -rf "$TEMP_DIR"
+    # 步骤 9: 清理当前目录  
+    safe_execute 9 "清理当前目录" "find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +"  
 
-# 添加所有更改
-git add .
+    # 步骤 10: 将临时目录的文件复制到主目录  
+    safe_execute 10 "复制文件到主目录" "cp -r \"\$TEMP_DIR\"/* ./"  
 
-# 提交更改
-echo -e "${GREEN}提交更改...${NC}"
-git commit -m "chore: release version $VERSION"
+    # 步骤 11: 删除临时目录  
+    safe_execute 11 "删除临时目录" "rm -rf \"\$TEMP_DIR\""  
 
-# 创建新的 tag
-echo -e "${GREEN}创建新的 tag v$VERSION...${NC}"
-git tag -a "v$VERSION" -m "Release version $VERSION"
+    # 步骤 12: 提交更改并创建 tag  
+    safe_execute 12 "提交更改并创建 tag" "git add . && git commit -m \"chore: release version \$VERSION\" && git tag -a \"v\$VERSION\" -m \"Release version \$VERSION\""  
 
-# 推送更改和 tag
-echo -e "${GREEN}推送更改和 tag 到远程...${NC}"
-git push origin main
-git push origin "v$VERSION"
+    # 步骤 13: 推送更改和 tag 到远程（可选）  
+    if [ "$SKIP_PUSH" = false ]; then  
+        safe_execute 13 "推送更改和 tag 到远程" "git push origin main && git push origin \"v\$VERSION\""  
+    else  
+        log "跳过推送操作（测试模式）" "$YELLOW" "[INFO]" 13  
+    fi  
 
-# 切回 develop 分支
-echo -e "${GREEN}切回 develop 分支...${NC}"
-git checkout develop
+    # 步骤 14: 切回 develop 分支并更新提交信息  
+    safe_execute 14 "切回 develop 分支并更新提交信息" "git checkout develop && git commit --amend -m \"\$COMMIT_MSG\n\nv\$VERSION released\" && git push origin develop --force"  
 
-# 更新提交信息并推送
-echo -e "${GREEN}更新提交信息并推送...${NC}"
-git commit --amend -m "$COMMIT_MSG
+    log "完成！已发布版本 v$VERSION" "$GREEN" "[INFO]" "$CURRENT_STEP"  
+}  
 
-v$VERSION released"
-git push origin develop --force
-
-echo -e "${GREEN}完成！${NC}"
-echo -e "${GREEN}已发布版本 v$VERSION${NC}"
+# 执行主流程  
+main
