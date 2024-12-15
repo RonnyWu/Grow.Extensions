@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [0.0.5] - 2024-12-15
+
+### Features
+- **extensions:** Add ComponentSyntax utility for Unity component management
+  - Optimized methods for component operations (GetOrAddComponent, RemoveComponent)
+  - Hierarchy traversal utilities with performance focus
+  - Full documentation and practical examples
+- **extensions:** Add StringSyntax utility for fluent string validation
+  - Fluent wrappers for IsNullOrEmpty/IsNullOrWhiteSpace operations
+  - Performance optimized implementations
+- **extensions:** Add Vector3Syntax for optimized position calculations
+  - Performance-focused Vector3 operations (InRange, DistanceTo)
+  - Optimized for Unity game development scenarios
+
+### Chores
+- **ci:** Simplify UPM publish workflow from Develop to Main
+  - Streamline package publishing process
+  - Improve branch management workflow
+
+### Documentation
+- Add comprehensive XML documentation for all new utilities
+- Include practical examples for game development scenarios
+- Add performance considerations and best practices
+
 ## [0.0.4] - 2024-12-11
 
 ### Added
