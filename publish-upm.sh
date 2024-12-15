@@ -18,17 +18,17 @@ SKIP_PUSH=false
 
 # 日志函数  
 log() {  
-    local message="\$1"  
-    local color="\$2"  
-    local prefix="\$3"  
-    local step="\$4"  
+    local message=\$1
+    local color=\$2
+    local prefix=\$3
+    local step=\$4
 
     # 计算进度百分比  
     local progress=$(( (CURRENT_STEP * 100) / TOTAL_STEPS ))  
 
     # 输出日志  
-    echo -e "${color}${prefix} [${progress}%] 步骤 $step/${TOTAL_STEPS}: $message${NC}"  
-}  
+    echo -e "${color}${prefix} [${progress}%] 步骤 ${step}/${TOTAL_STEPS}: ${message}${NC}"  
+}
 
 # 检查 Unity Editor 是否正在运行  
 check_unity_running() {  
