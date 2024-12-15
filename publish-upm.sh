@@ -82,16 +82,16 @@ get_last_commit_message() {
     git log -1 --pretty=%B
 }
 
-# 获取版本号
-get_version() {  
-    # 从 Assets/package.json 中获取版本号  
-    local version  
-    version=$(grep -o '"version": "[^"]*"' Assets/package.json | sed 's/"version": "\(.*\)"/\1/')  
-    if [ -z "$version" ]; then  
-        log "无法从 Assets/package.json 读取版本号" "$RED" "[ERROR]" "$CURRENT_STEP"  
-        exit 1  
-    fi  
-    echo "$version"  
+# 获取版本号（从 Assets/package.json 中获取）
+get_version() {
+    # 使用 grep 和 sed 从 Assets/package.json 获取版本号
+    local version
+    version=$(grep -o '"version": "[^"]*"' Assets/package.json | sed 's/"version": "\(.*\)"/\1/')
+    if [ -z "$version" ]; then
+        log "无法从 Assets/package.json 读取版本号" "$RED" "[ERROR]" "$CURRENT_STEP"
+        exit 1
+    fi
+    echo "$version"
 }
 
 # 安全复制函数
@@ -180,17 +180,17 @@ main() {
     # 步骤 6: 创建临时目录
     safe_execute 6 "创建临时目录" 'TEMP_DIR=$(mktemp -d)'
 
-    # 步骤 7: 复制文件到临时目录
-    safe_execute 7 "复制文件到临时目录" 'safe_copy "Assets" "$TEMP_DIR"'
+    # 步骤 7: 复制 Assets 目录下的内容到临时目录
+    safe_execute 7 "复制 Assets 目录下的内容到临时目录" 'safe_copy "Assets/." "$TEMP_DIR"'
 
     # 步骤 8: 切换到 main 分支
     safe_execute 8 "切换到 main 分支" "git checkout main"
 
-    # 步骤 9: 清理当前目录
+    # 步骤 9: 清理当前目录（保留 .git 和 package.json）
     safe_execute 9 "清理当前目录" 'find . -mindepth 1 -maxdepth 1 ! -name ".git" ! -name "package.json" -exec rm -rf {} +'
 
     # 步骤 10: 将临时目录的文件复制到主目录
-    safe_execute 10 "复制文件到主目录" 'cp -r "$TEMP_DIR"/* ./'
+    safe_execute 10 "复制临时目录的内容到主目录" 'cp -r "$TEMP_DIR"/. ./'
 
     # 步骤 11: 删除临时目录
     safe_execute 11 "删除临时目录" 'rm -rf "$TEMP_DIR"'
